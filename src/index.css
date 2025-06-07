@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root {
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  body {
+    @apply bg-game-bg text-white antialiased;
+    font-family: 'Inter', sans-serif;
+    background-image: 
+      radial-gradient(circle at 25% 25%, #1e40af22 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, #7c3aed22 0%, transparent 50%);
+    background-size: 800px 800px;
+  }
+  
+  html {
+    @apply scroll-smooth;
+  }
+  
+  /* Global scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+  
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Theme support */
+  html[data-theme="light"] body {
+    @apply bg-gray-100 text-gray-900;
+    background-image: 
+      radial-gradient(circle at 25% 25%, #e2e8f022 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, #eef2ff22 0%, transparent 50%);
+  }
+  
+  html[data-theme="light"] ::-webkit-scrollbar-track {
+    background: rgba(224, 224, 224, 0.5);
+  }
+  
+  html[data-theme="light"] ::-webkit-scrollbar-thumb {
+    background: rgba(113, 113, 122, 0.4);
+  }
+  
+  html[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(113, 113, 122, 0.6);
+  }
+  
+  html[data-theme="light"] * {
+    scrollbar-color: rgba(113, 113, 122, 0.4) rgba(224, 224, 224, 0.5);
+  }
+  
+  html[data-theme="cyber"] body {
+    @apply bg-black text-cyan-50;
+    background-image: 
+      radial-gradient(circle at 25% 25%, #0891b222 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, #1e3a8a22 0%, transparent 50%);
+  }
+  
+  html[data-theme="cyber"] ::-webkit-scrollbar-track {
+    background: rgba(0, 24, 40, 0.3);
+  }
+  
+  html[data-theme="cyber"] ::-webkit-scrollbar-thumb {
+    background: rgba(6, 182, 212, 0.3);
+    box-shadow: 0 0 5px rgba(6, 182, 212, 0.2);
+  }
+  
+  html[data-theme="cyber"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(6, 182, 212, 0.5);
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
+  }
+  
+  html[data-theme="cyber"] * {
+    scrollbar-color: rgba(6, 182, 212, 0.3) rgba(0, 24, 40, 0.3);
+  }
+  
+  html[data-theme="neon"] body {
+    @apply bg-gray-900 text-pink-50;
+    background-image: 
+      radial-gradient(circle at 25% 25%, #4f0e6b22 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, #92003022 0%, transparent 50%);
+  }
+  
+  html[data-theme="neon"] ::-webkit-scrollbar-track {
+    background: rgba(31, 17, 34, 0.4);
+  }
+  
+  html[data-theme="neon"] ::-webkit-scrollbar-thumb {
+    background: rgba(236, 72, 153, 0.3);
+    box-shadow: 0 0 5px rgba(236, 72, 153, 0.2);
+  }
+  
+  html[data-theme="neon"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(236, 72, 153, 0.5);
+    box-shadow: 0 0 8px rgba(236, 72, 153, 0.4);
+  }
+  
+  html[data-theme="neon"] * {
+    scrollbar-color: rgba(236, 72, 153, 0.3) rgba(31, 17, 34, 0.4);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl;
+  }
+  
+  .cyber-button {
+    @apply relative px-3 py-2 font-semibold text-white transition-all duration-300 transform;
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg;
+    @apply hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25;
+    @apply active:scale-95;
+  }
+  
+  .cyber-button:before {
+    content: '';
+    @apply absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  }
+  
+  .cyber-button:hover:before {
+    @apply opacity-100;
+  }
+  
+  .entity-card {
+    @apply glass-card p-2 transition-all duration-300;
+    @apply hover:bg-white/10 hover:scale-105 hover:shadow-lg;
+  }
+  
+  .battle-arena {
+    @apply relative overflow-hidden rounded-lg;
+  }
+  
+  /* Layout editor toolbar buttons */
+  .tool-button {
+    @apply px-3 py-2 bg-white/10 border border-white/20 rounded-lg;
+    @apply hover:bg-white/20 transition-all duration-200;
+    @apply flex items-center gap-2 text-sm font-medium;
+  }
+  
+  /* Sidebar styling */
+  .sidebar-tab-active {
+    @apply text-blue-400 border-b-2 border-blue-400;
+  }
+  
+  .sidebar-tab {
+    @apply text-gray-400 hover:text-gray-200 transition-colors;
+  }
+  
+  /* Compact win probability bar */
+  .win-probability-bar {
+    @apply h-2 bg-gray-800 rounded-full overflow-hidden;
+  }
+  
+  .win-probability-fill {
+    @apply h-full bg-gradient-to-r from-blue-500 to-blue-600;
+  }
+  
+  /* Theme-specific styles */
+  .cyber-glow {
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+  }
+  
+  .neon-glow {
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.15);
+  }
+  
+  /* Theme-specific tool buttons */
+  html[data-theme="light"] .tool-button {
+    @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-100;
+  }
+  
+  html[data-theme="cyber"] .tool-button {
+    @apply bg-black/50 border border-cyan-500/30 text-cyan-100 hover:bg-cyan-900/30;
+  }
+  
+  html[data-theme="neon"] .tool-button {
+    @apply bg-black/50 border border-pink-500/30 text-pink-100 hover:bg-pink-900/30;
+  }
+  
+  /* Theme-specific module cards */
+  html[data-theme="light"] .module-content {
+    @apply bg-white border-gray-200 text-gray-800 shadow-md;
+  }
+  
+  html[data-theme="cyber"] .module-content {
+    @apply bg-black/60 border-cyan-500/40 text-cyan-50 cyber-glow;
+  }
+  
+  html[data-theme="neon"] .module-content {
+    @apply bg-black/60 border-pink-500/40 text-pink-50 neon-glow;
+  }
+  
+  /* Improved sidebar styling */
+  .sidebar-content {
+    @apply flex flex-col h-full gap-4 p-4;
+  }
+  
+  /* Better responsive breakpoints for sidebars */
+  @screen lg {
+    .sidebar-left {
+      @apply w-72;
+    }
+    
+    .sidebar-right {
+      @apply w-80;
+    }
+  }
+  
+  @screen xl {
+    .sidebar-left {
+      @apply w-80;
+    }
+    
+    .sidebar-right {
+      @apply w-96;
+    }
+  }
+  
+  /* Improved glass card spacing */
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4;
+  }
+  
+  .glass-card-compact {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-3;
+  }
+  
+  /* Better sidebar scrolling - enhanced with animation */
+  .sidebar-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+  
+  .sidebar-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .sidebar-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  
+  .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  html[data-theme="cyber"] .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: rgba(6, 182, 212, 0.3);
+    box-shadow: 0 0 5px rgba(6, 182, 212, 0.2);
+  }
+  
+  html[data-theme="cyber"] .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(6, 182, 212, 0.5);
+  }
+  
+  html[data-theme="neon"] .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: rgba(236, 72, 153, 0.3);
+    box-shadow: 0 0 5px rgba(236, 72, 153, 0.2);
+  }
+  
+  html[data-theme="neon"] .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(236, 72, 153, 0.5);
+  }
+  
+  html[data-theme="light"] .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: rgba(113, 113, 122, 0.3);
+  }
+  
+  html[data-theme="light"] .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(113, 113, 122, 0.5);
+  }
+  
+  /* Improved entity composition panel */
+  .entity-composition-section {
+    @apply bg-white/5 rounded-lg border border-white/10 p-4 mb-4;
+  }
+  
+  .entity-composition-section:last-child {
+    @apply mb-0;
+  }
+  
+  /* Better button spacing in panels */
+  .panel-button-group {
+    @apply flex gap-2;
+  }
+  
+  .panel-button-group > button {
+    @apply flex-1;
+  }
+}
